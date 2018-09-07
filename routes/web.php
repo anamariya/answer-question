@@ -17,6 +17,7 @@ Auth::routes();
 
 Route::post('/question/create', 'QuestionsController@create')->name('createQuestion');
 Route::get('/question/like', 'QuestionsController@like')->name('likeQuestion');
+Route::get('/question/answer/like', 'AnswersController@like')->name('likeAnswer');
 Route::post('/question/answer', 'AnswersController@addAnswer')->name('addAnswer');
 
 

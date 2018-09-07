@@ -96,10 +96,10 @@
                                             </p>
                                         </div>
                                         <p>
-                                            @if(isset($questions_liked_by_me[$question->id]))
-                                                <i class="fas fa-thumbs-up m-1 liked"></i>{{$question->likes_amount}}
+                                            @if(isset($answers_liked_by_me[$answer->id]))
+                                                <i class="fas fa-thumbs-up m-1 liked"></i>{{$answer->likes_amount}}
                                             @else
-                                                <a onclick="likeQuestion({{$question->id}});return false;"><i class="fas fa-thumbs-up m-1"></i>{{$question->likes_amount}}</a>
+                                                <a onclick="likeAnswer({{$answer->id}},{{$question->id}});return false;"><i class="fas fa-thumbs-up m-1"></i>{{$answer->likes_amount}}</a>
                                             @endif
                                         </p>
                                     </li>

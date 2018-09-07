@@ -38,6 +38,7 @@ class HomeController extends Controller
         if(count($categories) == 0){
             (new \App\Categories)->insert_categories();
         }
+
         $questions_liked_by_me = Likes::where('user_id',Auth::user()->id)
             ->where('answer_id', null)
             ->get();
@@ -45,11 +46,21 @@ class HomeController extends Controller
         foreach($questions_liked_by_me as $question_liked_by_me){
             $questions_liked_by_me_array[$question_liked_by_me->question_id] = $question_liked_by_me;
         }
+
+        $answers_liked_by_me = Likes::where('user_id',Auth::user()->id)
+            ->whereNotNull('answer_id')
+            ->get();
+        $answers_liked_by_me_array =[];
+        foreach($answers_liked_by_me_array as $answer_liked_by_me){
+            $answers_liked_by_me_array[$answer_liked_by_me->answer_id] = $answer_liked_by_me;
+        }
+
         return view('home',[
             'categories' => $categories,
             'myQuestions' => $myQuestions,
             'allQuestions' => $allQuestions,
-            'questions_liked_by_me' => $questions_liked_by_me_array
+            'questions_liked_by_me' => $questions_liked_by_me_array,
+            'answers_liked_by_me' => $answers_liked_by_me_array
         ]);
     }
 }

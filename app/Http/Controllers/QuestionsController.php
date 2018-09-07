@@ -34,6 +34,5 @@ class QuestionsController extends Controller
         }
         else
             return "already exist";
-
     }
 }

@@ -37,6 +37,22 @@ function likeQuestion(id){
     });
 }
 
+function likeAnswer(id, question_id){
+    $.ajax({
+        type:'GET',
+        url:'/question/answer/like',
+        data: {
+            answer_id: id,
+            question_id: question_id
+        },
+        success:function(data){
+            if(data === "ok"){
+                window.location.reload();
+            }
+        }
+    });
+}
+
 function show_answer_form(id){
     $('#add_answer'+id).show();
 }
@@ -60,3 +76,4 @@ function add_answer(id){
         }
     });
 }
+
