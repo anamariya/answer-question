@@ -11,7 +11,13 @@
 |
 */
 
-Route::get('/', 'HomeController@index');
+Route::get('/', 'HomeController@index')->name('home');
 
 Auth::routes();
+
+Route::post('/question/create', 'QuestionsController@create')->name('createQuestion');
+Route::get('/question/like', 'QuestionsController@like')->name('likeQuestion');
+Route::post('/question/answer', 'AnswersController@addAnswer')->name('addAnswer');
+
+
 

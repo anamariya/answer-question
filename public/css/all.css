@@ -1,0 +1,11 @@
+#create_question_block, .add_answer{
+    display: none;
+}
+
+.liked{
+    color:#2980b9;
+}
+
+i:hover{
+    cursor: pointer;
+}
