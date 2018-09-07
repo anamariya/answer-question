@@ -51,7 +51,7 @@ class HomeController extends Controller
             ->whereNotNull('answer_id')
             ->get();
         $answers_liked_by_me_array =[];
-        foreach($answers_liked_by_me_array as $answer_liked_by_me){
+        foreach($answers_liked_by_me as $answer_liked_by_me){
             $answers_liked_by_me_array[$answer_liked_by_me->answer_id] = $answer_liked_by_me;
         }
 
