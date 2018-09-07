@@ -86,9 +86,9 @@
                                 @foreach($question->answers as $answer)
                                     <li class="list-group-item">
                                         <p>{{$answer->text}}</p>
-                                        <div>
+                                        <div class="d-flex justify-content-between">
                                             <p>Автор: {{$answer->user->name}}</p>
-                                            <p>
+                                            <p>Дата:
                                                 @php
                                                     $date=date_create($answer->updated_at);
                                                     echo date_format($date,"H:i:s d/m/Y");
