@@ -27,8 +27,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $myQuestions = Questions::where('user_id',Auth::user()->id)->get();
-        $allQuestions = Questions::all();
+        $myQuestions = Questions::where('user_id',Auth::user()->id)
+            ->orderBy('likes_amount', 'desc')
+            ->get();
+        $allQuestions = Questions::orderBy('likes_amount', 'desc')
+            ->get();
         $categories = Categories::all();
         if(count($categories) == 0){
             (new \App\Categories)->insert_categories();
