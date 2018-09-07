@@ -45,9 +45,27 @@
                         </div>
                         <ul class="list-group list-group-flush">
                             @if($myQuestion->answers)
-                                {{--@foreach($myQuestion->answers as $comment)--}}
-                                    {{--<li class="list-group-item">{{$comment->text}}</li>--}}
-                                {{--@endforeach--}}
+                                @foreach($myQuestion->answers as $answer)
+                                    <li class="list-group-item">
+                                        <p>{{$answer->text}}</p>
+                                        <div class="d-flex justify-content-between">
+                                            <p>Автор: {{$answer->user->name}}</p>
+                                            <p>Дата:
+                                                @php
+                                                    $date=date_create($answer->updated_at);
+                                                    echo date_format($date,"H:i:s d/m/Y");
+                                                @endphp
+                                            </p>
+                                        </div>
+                                        <p>
+                                            @if(isset($answers_liked_by_me[$answer->id]))
+                                                <i class="fas fa-thumbs-up m-1 liked"></i>{{$answer->likes_amount}}
+                                            @else
+                                                <a onclick="likeAnswer({{$answer->id}},{{$myQuestion->id}});return false;"><i class="fas fa-thumbs-up m-1"></i>{{$answer->likes_amount}}</a>
+                                            @endif
+                                        </p>
+                                    </li>
+                                @endforeach
                             @endif
                             <li class="list-group-item add_answer" id="add_my_answer{{$myQuestion->id}}">
                                 <form id="add_answer_form">
@@ -55,7 +73,7 @@
                                         <textarea class="form-control" id="add_answer_text{{$myQuestion->id}}" name="add_answer_text{{$myQuestion->id}}" placeholder="Оставить комментарий" required>
                                         </textarea>
                                     </div>
-                                    {{--<button class="btn btn-primary" onclick="add_answer({{$myQuestion->id}})">Отправить</button>--}}
+                                    <button class="btn btn-primary" onclick="add_answer({{$myQuestion->id}})">Отправить</button>
                                 </form>
                             </li>
 
