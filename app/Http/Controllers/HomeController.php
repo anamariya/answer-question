@@ -29,8 +29,10 @@ class HomeController extends Controller
     {
         $myQuestions = Questions::where('user_id',Auth::user()->id)
             ->orderBy('likes_amount', 'desc')
+            ->with('answers')
             ->get();
         $allQuestions = Questions::orderBy('likes_amount', 'desc')
+            ->with('answers')
             ->get();
         $categories = Categories::all();
         if(count($categories) == 0){

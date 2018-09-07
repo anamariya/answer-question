@@ -41,21 +41,21 @@
                                 <a onclick="likeQuestion({{$myQuestion->id}});return false;"><i class="fas fa-thumbs-up m-1"></i>{{$myQuestion->likes_amount}}</a>
 
                             @endif
-                            <a onclick="show_answer_form({{$myQuestion->id}});return false;"><i class="fas fa-comment m-1 ml-2"></i></a>
+                            <a onclick="show_my_answer_form({{$myQuestion->id}});return false;"><i class="fas fa-comment m-1 ml-2"></i></a>
                         </div>
                         <ul class="list-group list-group-flush">
                             @if($myQuestion->answers)
-                                @foreach($myQuestion->answers as $comment)
-                                    <li class="list-group-item">{{$comment->text}}</li>
-                                @endforeach
+                                {{--@foreach($myQuestion->answers as $comment)--}}
+                                    {{--<li class="list-group-item">{{$comment->text}}</li>--}}
+                                {{--@endforeach--}}
                             @endif
-                            <li class="list-group-item add_answer" id="add_answer{{$myQuestion->id}}">
+                            <li class="list-group-item add_answer" id="add_my_answer{{$myQuestion->id}}">
                                 <form id="add_answer_form">
                                     <div class="form-group">
                                         <textarea class="form-control" id="add_answer_text{{$myQuestion->id}}" name="add_answer_text{{$myQuestion->id}}" placeholder="Оставить комментарий" required>
                                         </textarea>
                                     </div>
-                                    <button class="btn btn-primary" onclick="add_answer({{$myQuestion->id}})">Отправить</button>
+                                    {{--<button class="btn btn-primary" onclick="add_answer({{$myQuestion->id}})">Отправить</button>--}}
                                 </form>
                             </li>
 
@@ -79,14 +79,44 @@
                                 <a onclick="likeQuestion({{$question->id}});return false;"><i class="fas fa-thumbs-up m-1"></i>{{$question->likes_amount}}</a>
 
                             @endif
-                            <a onclick="commentQuestion({{$question->id}});return false;"><i class="fas fa-comment m-1 ml-2"></i></a>
-                            <div id="comment_on_question{{$question->id}}"></div>
+                            <a onclick="show_answer_form({{$question->id}});return false;"><i class="fas fa-comment m-1 ml-2"></i></a>
                         </div>
-                        {{--<ul class="list-group list-group-flush">--}}
-                            {{--<li class="list-group-item">Cras justo odio</li>--}}
-                            {{--<li class="list-group-item">Dapibus ac facilisis in</li>--}}
-                            {{--<li class="list-group-item">Vestibulum at eros</li>--}}
-                        {{--</ul>--}}
+                        <ul class="list-group list-group-flush">
+                            @if($question->answers)
+                                @foreach($question->answers as $answer)
+                                    <li class="list-group-item">
+                                        <p>{{$answer->text}}</p>
+                                        <div>
+                                            <p>Автор: {{$answer->user->name}}</p>
+                                            <p>
+                                                @php
+                                                    $date=date_create($answer->updated_at);
+                                                    echo date_format($date,"H:i:s d/m/Y");
+                                                @endphp
+                                            </p>
+                                        </div>
+                                        <p>
+                                            @if(isset($questions_liked_by_me[$question->id]))
+                                                <i class="fas fa-thumbs-up m-1 liked"></i>{{$question->likes_amount}}
+                                            @else
+                                                <a onclick="likeQuestion({{$question->id}});return false;"><i class="fas fa-thumbs-up m-1"></i>{{$question->likes_amount}}</a>
+                                            @endif
+                                        </p>
+                                    </li>
+                                @endforeach
+                            @endif
+                            <li class="list-group-item add_answer" id="add_answer{{$question->id}}">
+                                <form>
+                                    <input type="hidden" id="question_id" value="{{$question->id}}">
+                                    <div class="form-group">
+                                        <textarea class="form-control" id="add_answer_text{{$question->id}}" name="add_answer_text{{$question->id}}" placeholder="Оставить комментарий" required>
+                                        </textarea>
+                                    </div>
+                                    <button class="btn btn-primary" onclick="add_answer({{$question->id}})" type="button">Отправить</button>
+                                </form>
+                            </li>
+
+                        </ul>
                     </div>
                     @endforeach
                 </div>

@@ -41,9 +41,12 @@ function show_answer_form(id){
     $('#add_answer'+id).show();
 }
 
-function add_answer(id, e){
-    e.preventDefault();
-    var text = $('#add_answer_text'+id).html();
+function show_my_answer_form(id){
+    $('#add_my_answer'+id).show();
+}
+
+function add_answer(id){
+    var text = $('#add_answer_text'+id).val();
     $.ajax({
         type:'POST',
         url:'/question/answer',
@@ -53,7 +56,7 @@ function add_answer(id, e){
             answer_text: text
         },
         success:function(data){
-            // window.location.reload();
+            window.location.reload();
         }
     });
 }
